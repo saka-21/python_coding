@@ -26,9 +26,20 @@ from flask import Response
 
 app = Flask(__name__)
 
-@app.route('/', methods=[''])
+@app.route('/')
 def hello_world():
-    return 'hello world'
+    return 'top'
+
+@app.route('/hello')
+@app.route('/hello/<username>')
+def hello_world2(username=None):
+    # return 'hello world {}'.format(username)
+    return render_template('hello.html', username=username)
+
+@app.route('/post', methods=['POST', 'PUT', 'DELETE'])
+def show_post():
+    return str(request.values)
+
 
 def main():
     app.debug = True
